@@ -1,0 +1,653 @@
+/* import google fonts -Inter */
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap");
+
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-image: url("/backgroundweb.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  position: relative; /* Pastikan body memiliki posisi relatif */
+}
+
+body::before {
+  content: "";
+  position: fixed; /* Gunakan fixed agar overlay tetap berada di tempat saat scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(54, 54, 54, 0.5); /* Warna hitam dengan opacity */
+  z-index: -1; /* Agar overlay berada di bawah konten */
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background-color: #333;
+  color: #fff;
+  padding: 10px auto;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+  height: 30px;
+  width: auto;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+header h1 {
+  padding-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 2em;
+}
+
+/* Main Content */
+main {
+  width: auto;
+  float: left;
+  padding: 20px;
+  max-width: 100%;
+}
+
+.main-content {
+  display: flex;
+  gap: 20px; /* Spasi antara article dan aside */
+  align-items: flex-start; /* Sejajarkan bagian atas */
+}
+
+.main-content article {
+  flex: 3; /* Artikel mengambil 3 bagian dari ruang */
+  margin-left: 100px;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: justify;
+}
+
+.main-content aside {
+  flex: 1; /* Sidebar mengambil 1 bagian dari ruang */
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-left: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.article-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+article img {
+  width: 300px;
+  height: 200px;
+}
+
+article h2 {
+  font-size: 18;
+  margin: 15px 0;
+}
+
+article p {
+  font-size: 12;
+  color: #666;
+}
+
+article a {
+  display: inline-block;
+  margin: 15px 0;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+article a:hover {
+  color: #007acc;
+}
+
+/* Footer */
+footer {
+  clear: both;
+  background-color: #333;
+  color: #fff;
+  padding: 30px 20px;
+  font-size: 0.8em;
+  margin-top: 20px;
+  display: block;
+}
+
+/* Navbar styling */
+nav {
+  align-content: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: left;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a.active, /* Highlight the active page */
+nav ul li a:hover {
+  color: #007acc;
+}
+
+.user-profile {
+  position: relative;
+  margin-left: auto;
+  margin-right: 10px;
+  align-content: center;
+}
+
+.user-profile img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* Popup container (adjust for positioning below the profile icon) */
+.popup-container {
+  position: absolute; /* Position relative to the parent container */
+  top: 60px; /* Offset below the profile icon */
+  right: 0; /* Align to the right */
+  background: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: none; /* Initially hidden */
+}
+
+/* Remove overlay effect for inline popup */
+.popup-container::before {
+  content: none;
+}
+
+/* Arrow for popup pointing to profile icon */
+.popup-container::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white; /* Matches the popup background color */
+}
+
+/* Profile picture styling */
+.profile-picture img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-btn {
+  background: #ff4b5c;
+  color: white;
+  text-decoration: none;
+}
+
+.logout-btn:hover {
+  background: #ff2a38;
+}
+
+.login-btn {
+  padding: 5px 15px;
+  margin-left: 5px;
+  border: none;
+  background-color: #007acc;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+/* Search Bar Styles */
+.search-bar {
+  margin-left: auto;
+}
+
+.search-bar input[type="text"] {
+  padding: 10px;
+  width: 200px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.search-bar button {
+  padding: 5px 15px;
+  margin-left: 5px;
+  border: none;
+  background-color: #007acc;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #005f99;
+}
+
+.footer {
+  background-color: #333; /* Dark background */
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact-container h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.social-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-links li {
+  display: flex;
+  align-items: center;
+}
+
+.social-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.social-links a img {
+  width: 24px; /* Icon size */
+  height: 24px;
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.social-links a:hover {
+  color: #ddd; /* Optional hover effect */
+}
+
+article img {
+  max-width: 100%;
+  height: auto;
+  margin: 15px 0;
+}
+
+ul {
+  list-style: square;
+  margin: 15px 0;
+}
+
+/* Menambahkan gaya untuk aside agar tetap di tempat saat scroll */
+aside {
+  position: -webkit-sticky; /* Dukungan untuk Safari */
+  position: sticky;
+  top: 80px; /* Jarak dari atas halaman ketika sticky */
+  max-height: calc(100vh - 100px); /* Agar tidak melewati batas komentar */
+  overflow-y: auto; /* Agar aside dapat digulir */
+  padding: 10px;
+  border: 1px solid #ddd; /* Garis pembatas */
+  background-color: #f9f9f9; /* Latar belakang aside */
+}
+
+.related-article-divider {
+  margin: 10px 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+aside h3 {
+  margin-bottom: 10px;
+}
+
+aside ul {
+  list-style: none;
+  padding: 0;
+}
+
+aside ul li {
+  margin-bottom: 10px;
+}
+
+aside ul li a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+aside ul li a:hover {
+  text-decoration: underline;
+}
+
+.author-photo {
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Styling untuk gambar artikel terkait */
+.related-article-image {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px; /* Jika Anda ingin memberi efek rounded pada gambar */
+}
+
+/* Styling untuk garis pembatas */
+.related-article-divider {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+footer p {
+  margin-top: 20px;
+}
+
+main img {
+  width: 800px;
+  height: auto;
+}
+
+#comments {
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  padding: 30px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#comments h3 {
+  font-size: 1.5em;
+}
+
+#comments ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#comments li div {
+  display: flex;
+}
+
+#comments li div div {
+  display: block;
+  margin-bottom: 20px;
+}
+
+#comments li div div small {
+  color: grey;
+  font-size: 10px;
+}
+
+.comments-list {
+  margin-bottom: 20px;
+}
+
+.comment-item {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.comment-content {
+  font-size: 1rem;
+  color: #444;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ===== Reactions Styling ===== */
+.comment-reactions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.reaction-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.reaction-button:hover {
+  border-color: #bbb;
+  background-color: #f0f0f0;
+}
+
+.reaction-button.active {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Tombol Like */
+.like-button.active {
+  background-color: #0a66c2;
+  border-color: #0a66c2;
+}
+
+/* Tombol Dislike */
+.dislike-button.active {
+  background-color: #ff3d3d;
+  border-color: #ff3d3d;
+}
+
+/* Icon dan Jumlah */
+.reaction-button span {
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  .reaction-button {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.btn-reply {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-reply:hover {
+  background-color: #45a049;
+}
+
+.replies {
+  margin-top: 15px;
+  padding-left: 20px;
+}
+
+.replies small {
+  color: grey;
+  font-size: 10px;
+}
+
+.reply-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.reply-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.reply-content {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+}
+
+.reply-content strong {
+  color: black;
+}
+.new-comment-form {
+  margin-top: 20px;
+}
+
+.new-comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.btn-submit-comment {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-submit-comment:hover {
+  background-color: #0056b3;
+}
+
+#comments p {
+  font-size: 1rem;
+  color: #666;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+table,
+tbody,
+tr {
+  border: 2px solid #ddd;
+  border-collapse: collapse;
+  width: 600px;
+  border-color: grey;
+}
+
+th {
+  padding: 10px;
+  margin: 10px;
+}
+
+tr td {
+  padding: 4px;
+  margin: auto;
+}

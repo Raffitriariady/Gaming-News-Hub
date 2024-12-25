@@ -1,0 +1,433 @@
+/* import google fonts -Inter */
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap");
+
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-image: url("/backgroundweb.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  position: relative; /* Pastikan body memiliki posisi relatif */
+}
+
+body::before {
+  content: "";
+  position: fixed; /* Gunakan fixed agar overlay tetap berada di tempat saat scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(54, 54, 54, 0.5); /* Warna hitam dengan opacity */
+  z-index: -1; /* Agar overlay berada di bawah konten */
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #333;
+  color: #fff;
+  padding: 10px auto;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+  height: 30px;
+  width: auto;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+header h1 {
+  padding-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 2em;
+}
+
+/* Main Content */
+main {
+  padding: 20px;
+}
+
+main h1,
+main h2 {
+  padding-bottom: 20px;
+  font-size: 3rem;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7),
+    -2px -2px 4px rgba(255, 255, 255, 0.7),
+    2px -2px 4px rgba(255, 255, 255, 0.7), -2px 2px 4px rgba(255, 255, 255, 0.7);
+}
+
+.article-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+article {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+  text-align: center;
+}
+
+article img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+article h2 {
+  font-size: 1.5em;
+  margin: 15px 0;
+}
+
+article p {
+  padding: 0 15px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+article a {
+  display: inline-block;
+  margin: 15px 0;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+article a:hover {
+  color: #007acc;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 30px 20px;
+  font-size: 0.8em;
+  margin-top: 20px;
+  display: block;
+}
+
+/* Navbar styling */
+nav {
+  align-content: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: left;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a.active, /* Highlight the active page */
+nav ul li a:hover {
+  color: #007acc;
+}
+
+.user-profile {
+  position: relative;
+  margin-left: auto;
+  margin-right: 10px;
+  align-content: center;
+}
+
+.user-profile img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* Popup container (adjust for positioning below the profile icon) */
+.popup-container {
+  position: absolute; /* Position relative to the parent container */
+  top: 60px; /* Offset below the profile icon */
+  right: 0; /* Align to the right */
+  background: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: none; /* Initially hidden */
+}
+
+/* Remove overlay effect for inline popup */
+.popup-container::before {
+  content: none;
+}
+
+/* Arrow for popup pointing to profile icon */
+.popup-container::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white; /* Matches the popup background color */
+}
+/* Profile picture styling */
+.profile-picture img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-btn {
+  background: #ff4b5c;
+  color: white;
+}
+
+.logout-btn:hover {
+  background: #ff2a38;
+}
+
+.login-btn {
+  padding: 5px 15px;
+  margin-left: 5px;
+  border: none;
+  background-color: #007acc;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+/* Search Bar Styles */
+.search-bar {
+  margin-left: auto;
+}
+
+.search-bar input[type="text"] {
+  padding: 10px;
+  width: 200px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.search-bar button {
+  padding: 5px 15px;
+  margin-left: 5px;
+  border: none;
+  background-color: #007acc;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #005f99;
+}
+
+.card-wrapper {
+  max-width: 3000px;
+  margin: 0 60px 35px;
+  padding: 20px 10px;
+  overflow: hidden;
+}
+
+.card-list .card-item {
+  list-style: none;
+}
+
+.card-list .card-item .card-link {
+  user-select: none;
+  display: block;
+  background: #fff;
+  padding: 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+  transition: 0.2s ease;
+  min-height: 480px;
+}
+
+.card-list .card-item .card-link:hover {
+  border-color: #5372f0;
+}
+
+.card-list .card-link .card-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-list .card-link .badge {
+  color: #5372f0;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 16px 0 18px;
+  background: #dde4ff;
+  width: fit-content;
+  border-radius: 50px;
+}
+
+.card-list .card-link .badge.News {
+  color: #b22485;
+  background: #f7dff5;
+}
+
+.card-list .card-link .badge.Reviews {
+  color: #856404;
+  background: #fff3cd;
+}
+
+.card-list .card-link .badge.Esports {
+  color: #205c20;
+  background: #d6f8d6;
+}
+
+.card-list .card-link .card-title {
+  font-size: 1.19rem;
+  color: #000;
+  font-weight: 600;
+}
+
+.card-list .card-link .card-button {
+  height: 35px;
+  width: 35px;
+  color: #5372f0;
+  border-radius: 50%;
+  margin: 30px 0 5px;
+  background: none;
+  cursor: pointer;
+  border: 2px solid #5372f0;
+  transform: rotate(-45deg);
+  transition: 0.4s ease;
+}
+
+.card-list .card-link:hover .card-button {
+  color: #fff;
+  background: #5372f0;
+}
+
+.card-wrapper .swiper-pagination-bullet {
+  height: 13px;
+  width: 13px;
+  opacity: 0.5;
+  background: #5372f0;
+}
+
+.card-wrapper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+.card-wrapper .swiper-slide-button {
+  color: #5372f0;
+  margin-top: -35px;
+}
+
+.sub-carousel {
+  max-width: 2000px;
+}
+
+.sub-carousel a {
+  color: #333;
+  text-decoration: none;
+}
+
+.sub-carousel .card-list .card-item .card-link {
+  min-height: 450px;
+}
+
+.footer {
+  background-color: #333; /* Dark background */
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact-container h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.social-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-links li {
+  display: flex;
+  align-items: center;
+}
+
+.social-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.social-links a img {
+  width: 24px; /* Icon size */
+  height: 24px;
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.social-links a:hover {
+  color: #ddd; /* Optional hover effect */
+}
+
+footer p {
+  margin-top: 20px;
+}

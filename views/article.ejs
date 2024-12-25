@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/logo.png" type="image" />
+    <title><%= article.title %></title>
+    <link rel="stylesheet" href="/css/article.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <img src="/logo.png" alt="" />
+      <h1>Gaming News Hub</h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="news">News</a></li>
+          <li><a href="reviews">Reviews</a></li>
+          <li><a href="esports">Esports</a></li>
+        </ul>
+      </nav>
+
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <form action="/search" method="GET">
+          <input
+            type="text"
+            name="query"
+            placeholder="Search articles..."
+            required
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="user-profile">
+        <% if (user) { %>
+        <img
+          src="<%= user.profilePicture %>"
+          alt="Profile"
+          id="profileImage"
+          onclick="toggleProfilePopup()"
+          style="cursor: pointer"
+        />
+
+        <!-- Pop-up Profile -->
+        <div id="profilePopup" class="popup-container" style="display: none">
+          <div class="popup-content">
+            <h2><%= user.username %></h2>
+
+            <div class="profile-picture">
+              <img
+                id="profilePic"
+                src="<%= user.profilePicture %>"
+                alt="Profile Picture"
+              />
+              <form
+                id="uploadForm"
+                action="/profile/upload"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <input
+                  type="file"
+                  name="profilePicture"
+                  accept="image/*"
+                  onchange="this.form.submit()"
+                />
+              </form>
+            </div>
+
+            <button id="logoutButton" class="btn logout-btn">Log Out</button>
+          </div>
+        </div>
+        <% } else { %>
+        <a href="/login" class="login-btn">Login</a>
+        <% } %>
+      </div>
+    </header>
+
+    <main>
+      <div class="main-content">
+        <article>
+          <h2><%= article.title %></h2>
+          <img src="<%= article.image %>" alt="<%= article.title %>" />
+          <p>
+            <small
+              >Published on <%= article.published_at %> by <%= article.author
+              %></small
+            >
+          </p>
+          <br />
+          <p><%- article.content %></p>
+        </article>
+
+        <!-- Bagian aside untuk artikel terkait -->
+        <aside>
+          <h3>More Articles</h3>
+          <ul>
+            <% if (relatedArticles && relatedArticles.length > 0) { %> <%
+            relatedArticles.forEach((relatedArticle) => { %>
+            <li>
+              <a href="/article?id=<%= relatedArticle.id %>">
+                <h4><%= relatedArticle.title %></h4>
+              </a>
+
+              <!-- Menampilkan gambar artikel terkait -->
+              <% if (relatedArticle.image) { %>
+              <a href="/article?id=<%= relatedArticle.id %>">
+                <img
+                  src="<%= relatedArticle.image %>"
+                  alt="<%= relatedArticle.title %>"
+                  class="related-article-image"
+                />
+              </a>
+              <% } %>
+
+              <!-- Garis pembatas di bawah gambar -->
+              <hr class="related-article-divider" />
+            </li>
+            <% }); %> <% } else { %>
+            <li>No more articles available.</li>
+            <% } %>
+          </ul>
+        </aside>
+      </div>
+
+      <section id="comments">
+        <!-- Form to Submit New Comment -->
+        <% if (user) { %>
+        <form action="/article/comment" method="POST" class="new-comment-form">
+          <textarea
+            name="content"
+            placeholder="Write your comment..."
+            required
+          ></textarea>
+          <input type="hidden" name="article_id" value="<%= article.id %>" />
+          <button type="submit" class="btn-submit-comment">
+            Submit Comment
+          </button>
+        </form>
+        <% } else { %>
+        <p>You must <a href="/login">login</a> to comment.</p>
+        <% } %>
+        <br />
+        <hr />
+        <br />
+        <h3>Comments (<%= comments.length %>)</h3>
+
+        <!-- Daftar Komentar -->
+        <% if (comments.length > 0) { %>
+        <ul>
+          <% comments.forEach(comment => { %>
+          <li class="comment">
+            <div>
+              <img
+                src="<%= comment.profilePicture %>"
+                alt="<%= comment.username %>"
+                class="comment-avatar"
+              />
+              <div>
+                <strong><%= comment.username %></strong>
+                <br />
+                <small>Posted on <%= comment.created_at %></small>
+                <p><%= comment.content %></p>
+              </div>
+            </div>
+          </li>
+
+          <div class="comment-reactions">
+            <form class="reaction-form">
+              <input
+                type="hidden"
+                name="article_id"
+                value="<%= article.id %>"
+              />
+              <input
+                type="hidden"
+                name="comment_id"
+                value="<%= comment.id %>"
+              />
+
+              <!-- Tombol Like -->
+              <button
+                type="button"
+                data-reaction="like"
+                class="reaction-button like-button"
+              >
+                👍 <span class="like-count"><%= comment.likes %></span>
+              </button>
+
+              <!-- Tombol Dislike -->
+              <button
+                type="button"
+                data-reaction="dislike"
+                class="reaction-button dislike-button"
+              >
+                👎 <span class="dislike-count"><%= comment.dislikes %></span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Reply form -->
+          <div class="reply-form">
+            <form action="/article/comment/reply" method="POST">
+              <textarea
+                name="content"
+                placeholder="Write a reply..."
+                required
+              ></textarea>
+              <input
+                type="hidden"
+                name="comment_id"
+                value="<%= comment.id %>"
+              />
+              <input
+                type="hidden"
+                name="article_id"
+                value="<%= article.id %>"
+              />
+              <button type="submit" class="btn-reply">Reply</button>
+            </form>
+          </div>
+
+          <!-- Replies -->
+          <div class="replies">
+            <% comment.replies.forEach(reply => { %>
+            <div class="reply-item">
+              <img
+                src="<%= reply.profilePicture %>"
+                alt="<%= reply.username %>"
+                class="reply-avatar"
+              />
+              <div class="reply-content">
+                <strong><%= reply.username %></strong>
+                <div>
+                  <small>Posted on <%= reply.created_at %></small>
+                  <br />
+                  <%= reply.content %>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+            <hr />
+            <br />
+          </div>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <p>No comments yet. Be the first to comment!</p>
+        <% } %>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="contact-container">
+        <h2>Contact Us</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://twitter.com/gamingnewshub" target="_blank">
+              <img src="/twitter-x-logo.png" alt="X icon" /> twitter
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/gamingnewshub" target="_blank">
+              <img src="/instagram logo (2).png" alt="Instagram icon" />
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://facebook.com/gamingnewshub" target="_blank">
+              <img src="/facebook-logo.png" alt="Facebook icon" />
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a href="https://tiktok.com/@gamingnewshub" target="_blank">
+              <img src="/tiktok logo.png" alt="TikTok icon" /> Tiktok
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+            >
+              <img src="/youtube logo.png" alt="YouTube icon" /> Youtube
+            </a>
+          </li>
+        </ul>
+      </div>
+      <p>&copy; 2024 Gaming News Hub. All rights reserved.</p>
+    </footer>
+
+    <!--Ngelink SwiperJS script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Link Custom js -->
+    <script src="/js/script.js"></script>
+  </body>
+</html>

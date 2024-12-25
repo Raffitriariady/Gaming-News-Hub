@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/logo.png" type="image" />
+    <!-- Link Google fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward"
+    />
+    <!-- Link swiperJS CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <title>Gaming News Hub</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <img src="/logo.png" alt="" />
+      <h1>Gaming News Hub</h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="news" class="active">News</a></li>
+          <li><a href="reviews">Reviews</a></li>
+          <li><a href="esports">Esports</a></li>
+        </ul>
+      </nav>
+
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <form action="/search" method="GET">
+          <input type="text" name="query" placeholder="Search articles..." required />
+          <button type="submit">Search</button>
+        </form>
+        </div>
+    
+
+      <div class="user-profile">
+        <% if (user) { %>
+        <img
+          src="<%= user.profilePicture %>"
+          alt="Profile"
+          id="profileImage"
+          onclick="toggleProfilePopup()"
+          style="cursor: pointer"
+        />
+
+        <!-- Pop-up Profile -->
+        <div id="profilePopup" class="popup-container" style="display: none">
+          <div class="popup-content">
+            <h2><%= user.username %></h2>
+
+            <div class="profile-picture">
+              <img
+                id="profilePic"
+                src="<%= user.profilePicture %>"
+                alt="Profile Picture"
+              />
+              <form
+                id="uploadForm"
+                action="/profile/upload"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <input
+                  type="file"
+                  name="profilePicture"
+                  accept="image/*"
+                  onchange="this.form.submit()"
+                />
+              </form>
+            </div>
+
+            <button id="logoutButton" class="btn logout-btn">Log Out</button>
+          </div>
+        </div>
+        <% } else { %>
+        <a href="/login" class="login-btn">Login</a>
+        <% } %>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <h1>News</h1>
+
+      <section class="article-list" id="articleList">
+        <% if (articles && articles.length > 0) { %> <%
+        articles.forEach((article) => { %>
+        <article>
+          <img src="<%= article.image %>" alt="<%= article.title %>" />
+          <h2>
+            <a href="article?id=<%= article.id %>"><%= article.title %></a>
+          </h2>
+          <p><%= article.description %></p>
+          <a href="article?id=<%= article.id %>">Read more</a>
+        </article>
+        <% }) %> <% } else { %>
+        <p>No articles available at the moment.</p>
+        <% } %>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="contact-container">
+        <h2>Contact Us</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://twitter.com/gamingnewshub" target="_blank">
+              <img src="/twitter-x-logo.png" alt="X icon" /> twitter
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/gamingnewshub" target="_blank">
+              <img src="/instagram logo (2).png" alt="Instagram icon" />
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://facebook.com/gamingnewshub" target="_blank">
+              <img src="/facebook-logo.png" alt="Facebook icon" />
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a href="https://tiktok.com/@gamingnewshub" target="_blank">
+              <img src="/tiktok logo.png" alt="TikTok icon" /> Tiktok
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+            >
+              <img src="/youtube logo.png" alt="YouTube icon" /> Youtube
+            </a>
+          </li>
+        </ul>
+      </div>
+      <p>&copy; 2024 Gaming News Hub. All rights reserved.</p>
+    </footer>
+
+    <!--Ngelink SwiperJS script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Link Custom js -->
+    <script src="/js/script.js"></script>
+  </body>
+</html>
